@@ -3,6 +3,7 @@ const globSync = require('glob').sync;
 const path = require('path');
 const signale = require('signale');
 const fs = require('fs');
+const { printMap } = require('./utils');
 
 const severity = {
   0: 'None',
@@ -65,10 +66,7 @@ function runEslint() {
   });
 
   signale.complete(`Found ${relevantResults.length} files with errors`);
-  signale.complete('Result Map:');
-  Object.entries(resultMap).forEach(([moduleName, frequency]) => {
-    signale.complete(`\t ${moduleName}: ${frequency}`);
-  });
+  printMap(resultMap);
 }
 
 if (require.main === module) {

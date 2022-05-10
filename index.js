@@ -20,12 +20,10 @@ const options = {
 
 function writeEslintDisableCommentToLine(file, lineNumber, ruleId) {
   const data = fs.readFileSync(file).toString().split('\n');
-  data.splice(lineNumber, 0, `// eslint-disable-next-line ${ruleId}`);
+  data.splice(lineNumber - 1, 0, `// eslint-disable-next-line ${ruleId}`);
   const text = data.join('\n');
 
-  fs.writeFile('file.txt', text, (err) => {
-    if (err) return signale.error(err);
-  });
+  fs.writeFileSync(file, text);
 }
 
 function runEslint() {
